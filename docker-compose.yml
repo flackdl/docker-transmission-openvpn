@@ -4,7 +4,7 @@ services:
  transmission:
   build:
      context: .
-     dockerfile: Dockerfile.armhf
+     dockerfile: Dockerfile
   image: haugene/rpi-transmission-openvpn
   cap_add:
     - NET_ADMIN
@@ -18,22 +18,26 @@ services:
     - 8.8.4.4
   volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /tmp:/data
+    - /media/torrents:/data
   env_file:
     - .env
   environment:
-    - OPENVPN_PROVIDER=PIA
     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - LOCAL_NETWORK=192.168.1.0/24
 
- proxy:
-  build:
-     context: ./proxy
-     dockerfile: Dockerfile.armhf
-  image: haugene/rpi-transmission-openvpn-proxy
-  links:
+ sonarr:
+   build:
+     context: https://github.com/linuxserver/docker-sonarr-armhf.git
+   volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - /dev/rtc:/dev/rtc:ro
+     - /media/sonarr/series:/tv
+     - /media/sonarr/config:/config
+     - /media/torrents/completed/:/downloads
+   ports:
+     - "8989:8989"
+   environment:
+     - PUID=0
+     - PGID=0
+   depends_on:
     - transmission
-  ports:
-    - "8080:8080"
-  volumes:
-    - /etc/localtime:/etc/localtime:ro
