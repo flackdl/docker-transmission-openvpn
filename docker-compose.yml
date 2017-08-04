@@ -41,3 +41,17 @@ services:
      - PGID=0
    depends_on:
     - transmission
+
+ ssh-to-docker-host:
+   container_name: autossh-ssh-to-docker-host
+   build:
+     context: docker-autossh
+     dockerfile: Dockerfile.arm
+   restart: always
+   env_file:
+    - .env
+   volumes:
+    - /home/pi/rpi-consumer/id_rsa:/id_rsa
+   dns:
+    - 8.8.8.8
+    - 4.2.2.4
