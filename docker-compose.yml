@@ -43,10 +43,8 @@ services:
     - transmission
 
  ssh-to-docker-host:
-   container_name: autossh-ssh-to-docker-host
    build:
-     context: docker-autossh
-     dockerfile: Dockerfile.arm
+     context: git@github.com:flackdl/rpi-docker-autossh.git
    restart: always
    env_file:
     - .env
