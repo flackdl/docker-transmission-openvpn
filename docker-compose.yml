@@ -18,7 +18,7 @@ services:
     - 8.8.4.4
   volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /media/torrents:/data
+    - /media/blackbox/torrents:/data
   env_file:
     - .env
   environment:
@@ -31,9 +31,10 @@ services:
    volumes:
      - /etc/localtime:/etc/localtime:ro
      - /dev/rtc:/dev/rtc:ro
-     - /media/sonarr/series:/tv
-     - /media/sonarr/config:/config
-     - /media/torrents/completed/:/downloads
+     - /media/blackbox/sonarr/series:/tv
+     - /media/blackbox/sonarr/config:/config
+     - /media/blackbox/torrents/completed/:/data/completed
+     - /media/blackbox/torrents/completed/:/downloads
    ports:
      - "8989:8989"
    environment:
@@ -49,7 +50,19 @@ services:
    env_file:
     - .env
    volumes:
-    - /home/pi/rpi-consumer/id_rsa:/id_rsa
+    - $PWD/id_rsa:/id_rsa
    dns:
     - 8.8.8.8
     - 4.2.2.4
+
+ cron:
+   image: b00gizm/rpi-cron:alpine
+   restart: always
+   env_file:
+    - .env
+   volumes:
+    - $PWD/crons:/etc/periodic
+   dns:
+    - 8.8.8.8
+    - 4.2.2.4
+   network_mode: "host"
