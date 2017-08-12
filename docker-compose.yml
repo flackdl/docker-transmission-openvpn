@@ -25,9 +25,26 @@ services:
     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - LOCAL_NETWORK=192.168.1.0/24
 
+ radarr:
+   build:
+     context: https://github.com/linuxserver/docker-radarr-armhf.git
+   restart: always
+   volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - /dev/rtc:/dev/rtc:ro
+     - /media/blackbox/radarr/movies:/movies
+     - /media/blackbox/radarr/config:/config
+     - /media/blackbox/torrents:/downloads
+   environment:
+     - PUID=0
+     - PGID=0
+   depends_on:
+     - transmission
+
  sonarr:
    build:
      context: https://github.com/linuxserver/docker-sonarr-armhf.git
+   restart: always
    volumes:
      - /etc/localtime:/etc/localtime:ro
      - /dev/rtc:/dev/rtc:ro
@@ -59,6 +76,7 @@ services:
 # jackett:
 #   build:
 #     context: rpi-docker-jackett/
+#   restart: always
 #   volumes:
 #     - /media/blackbox/jackett/config/:/config
 #     - /media/blackbox/torrents/completed/:/downloads
