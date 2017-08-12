@@ -55,13 +55,23 @@ services:
     - 8.8.8.8
     - 4.2.2.4
 
+# # proxy to a bunch of public trackers
+# jackett:
+#   build:
+#     context: rpi-docker-jackett/
+#   volumes:
+#     - /media/blackbox/jackett/config/:/config
+#     - /media/blackbox/torrents/completed/:/downloads
+
  cron:
-   image: b00gizm/rpi-cron:alpine
+   build:
+     context: rpi-docker-cron/
    restart: always
    env_file:
     - .env
    volumes:
-    - $PWD/crons:/etc/periodic
+    - $PWD/dns-update.sh:/etc/cron.hourly/dns-update.sh
+    - /var/log
    dns:
     - 8.8.8.8
     - 4.2.2.4
