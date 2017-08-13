@@ -35,6 +35,8 @@ services:
      - /media/blackbox/radarr/movies:/movies
      - /media/blackbox/radarr/config:/config
      - /media/blackbox/torrents:/downloads
+   ports:
+     - "7878:7878"
    environment:
      - PUID=0
      - PGID=0
