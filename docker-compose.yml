@@ -22,6 +22,8 @@ services:
   env_file:
     - .env
   environment:
+    - PUID=1000
+    - PGID=1000
     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - LOCAL_NETWORK=192.168.1.0/24
 
@@ -38,8 +40,8 @@ services:
    ports:
      - "7878:7878"
    environment:
-     - PUID=0
-     - PGID=0
+     - PUID=1000
+     - PGID=1000
    depends_on:
      - transmission
 
@@ -57,8 +59,8 @@ services:
    ports:
      - "8989:8989"
    environment:
-     - PUID=0
-     - PGID=0
+     - PUID=1000
+     - PGID=1000
    depends_on:
     - transmission
 
