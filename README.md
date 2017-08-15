@@ -1,5 +1,6 @@
 ### Install base packages
-sudo apt-get install pure-ftpd screen vim
+
+	sudo apt-get install pure-ftpd screen vim fail2ban
 
 ### Setup static ip
 
