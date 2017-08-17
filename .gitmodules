@@ -1,0 +1,6 @@
+[submodule "rpi-docker-cron"]
+	path = rpi-docker-cron
+	url = https://github.com/flackdl/rpi-docker-cron.git
+[submodule "rpi-docker-jackett"]
+	path = rpi-docker-jackett
+	url = https://github.com/flackdl/rpi-docker-jackett.git
