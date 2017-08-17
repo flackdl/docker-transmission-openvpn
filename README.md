@@ -1,7 +1,10 @@
-### Install base packages
-
+### Setup
+	passwd
 	sudo apt-get install pure-ftpd screen vim fail2ban
-
+	curl -sSL https://get.docker.com | sudo sh
+	sudo usermod -aG docker pi
+	sudo pip install docker-compose
+	
 ### Setup static ip
 
 Add this to `/etc/dhcpcd.conf`:
