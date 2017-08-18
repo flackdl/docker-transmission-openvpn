@@ -1,4 +1,4 @@
-### Setup
+### Install packages
 
 	# change default password
 	passwd
@@ -15,12 +15,17 @@
 	echo "deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/hypriot.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 37BBEE3F7AD95B3F
 	
+### Configure
+
+	# generate ssh keys (add to publicly accessible server for reverse ssh)
+	ssh-keygen
+		
 	
 ### Setup static ip
 
-Add this to `/etc/dhcpcd.conf`:
+Add to `/etc/dhcpcd.conf`:
 	
 	interface eth0
-	static ip_address=192.168.1.122/24
+	static ip_address=192.168.1.222/24
 	static routers=192.168.1.1
 	static domain_name_servers=192.168.1.1
