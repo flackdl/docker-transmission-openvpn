@@ -19,6 +19,9 @@
 
 	# generate ssh keys (add to publicly accessible server for reverse ssh)
 	ssh-keygen
+	# copy to this directory and secure permissions
+	cp ~/.ssh/id_rsa .
+	chmod 600 id_rsa
 		
 	
 ### Setup static ip
