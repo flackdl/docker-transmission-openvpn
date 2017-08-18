@@ -1,9 +1,20 @@
 ### Setup
+
+	# change default password
 	passwd
+	
+	# install base packages
 	sudo apt-get install pure-ftpd screen vim fail2ban
+	
+	# docker
 	curl -sSL https://get.docker.com | sudo sh
 	sudo usermod -aG docker pi
-	sudo pip install docker-compose
+	
+	# docker compose
+	sudo apt-get install -y apt-transport-https
+	echo "deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ jessie main" | sudo tee /etc/apt/sources.list.d/hypriot.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 37BBEE3F7AD95B3F
+	
 	
 ### Setup static ip
 
