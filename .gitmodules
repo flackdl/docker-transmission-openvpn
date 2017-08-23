@@ -4,3 +4,6 @@
 [submodule "rpi-docker-jackett"]
 	path = rpi-docker-jackett
 	url = https://github.com/flackdl/rpi-docker-jackett.git
+[submodule "rpi-docker-autossh"]
+	path = rpi-docker-autossh
+	url = https://github.com/flackdl/rpi-docker-autossh.git
