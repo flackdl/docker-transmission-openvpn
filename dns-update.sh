@@ -1,2 +1,2 @@
 #!/bin/bash
-wget $CRON_DNS_UPDATE_URL
+curl $CRON_DNS_UPDATE_URL
