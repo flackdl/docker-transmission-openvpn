@@ -34,3 +34,12 @@ Add to `/etc/dhcpcd.conf`:
 	static ip_address=192.168.1.222/24
 	static routers=192.168.1.1
 	static domain_name_servers=192.168.1.1
+
+### Clone this repository
+
+    git clone https://github.com/flackdl/rpi-consumer.git
+    cd rpi-consumer/
+    # get submodules
+    git submodule update --recursive
+    # copy and edit .env
+    cp .env.example .env
