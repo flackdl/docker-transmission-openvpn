@@ -18,7 +18,7 @@ services:
     - 8.8.4.4
   volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /media/blackbox/torrents:/data
+    - /media/pi/blackhole/torrents:/data
   env_file:
     - .env
   environment:
@@ -27,6 +27,17 @@ services:
     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - LOCAL_NETWORK=192.168.1.0/24
 
+ transmission-proxy:
+   build:
+     context: ./proxy/
+   restart: always
+   links:
+     - transmission
+   ports:
+     - "8080:8080"
+   depends_on:
+     - transmission
+
  radarr:
    build:
      context: https://github.com/linuxserver/docker-radarr-armhf.git
@@ -34,9 +45,9 @@ services:
    volumes:
      - /etc/localtime:/etc/localtime:ro
      - /dev/rtc:/dev/rtc:ro
-     - /media/blackbox/radarr/movies:/movies
-     - /media/blackbox/radarr/config:/config
-     - /media/blackbox/torrents:/downloads
+     - /media/pi/blackhole/radarr/movies:/movies
+     - /media/pi/blackhole/radarr/config:/config
+     - /media/pi/blackhole/torrents:/downloads
    ports:
      - "7878:7878"
    environment:
@@ -52,10 +63,9 @@ services:
    volumes:
      - /etc/localtime:/etc/localtime:ro
      - /dev/rtc:/dev/rtc:ro
-     - /media/blackbox/sonarr/series:/tv
-     - /media/blackbox/sonarr/config:/config
-     - /media/blackbox/torrents/completed/:/data/completed
-     - /media/blackbox/torrents/completed/:/downloads
+     - /media/pi/blackhole/sonarr/series:/tv
+     - /media/pi/blackhole/sonarr/config:/config
+     - /media/pi/blackhole/torrents:/downloads
    ports:
      - "8989:8989"
    environment:
@@ -75,15 +85,6 @@ services:
    dns:
     - 8.8.8.8
     - 4.2.2.4
-
-# # proxy to a bunch of public trackers
-# jackett:
-#   build:
-#     context: rpi-docker-jackett/
-#   restart: always
-#   volumes:
-#     - /media/blackbox/jackett/config/:/config
-#     - /media/blackbox/torrents/completed/:/downloads
 
  cron:
    build:
