@@ -1,6 +1,23 @@
 version: '2'
 
 services:
+ plex:
+  image: lsioarmhf/plex
+  restart: always
+  network_mode: "host"
+  ports:
+    - "32400:32400"
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+  volumes:
+    - /media/pi/blackhole/plex/:/config
+    - /media/pi/blackhole/torrents/completed/:/data/movies
+    - /media/pi/blackhole/torrents/completed/:/data/tvshows
+  environment:
+    - PUID=1000
+    - PGID=1000
+
  transmission:
   build:
      context: .
@@ -35,24 +52,6 @@ services:
      - transmission
    ports:
      - "8080:8080"
-   depends_on:
-     - transmission
-
- radarr:
-   build:
-     context: https://github.com/linuxserver/docker-radarr-armhf.git
-   restart: always
-   volumes:
-     - /etc/localtime:/etc/localtime:ro
-     - /dev/rtc:/dev/rtc:ro
-     - /media/pi/blackhole/radarr/movies:/movies
-     - /media/pi/blackhole/radarr/config:/config
-     - /media/pi/blackhole/torrents:/downloads
-   ports:
-     - "7878:7878"
-   environment:
-     - PUID=1000
-     - PGID=1000
    depends_on:
      - transmission
 
