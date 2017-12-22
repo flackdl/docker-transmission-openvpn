@@ -1,22 +1,6 @@
 version: '2'
 
 services:
- plex:
-  image: lsioarmhf/plex
-  restart: always
-  network_mode: "host"
-  ports:
-    - "32400:32400"
-  dns:
-    - 8.8.8.8
-    - 8.8.4.4
-  volumes:
-    - /media/pi/blackhole/plex/:/config
-    - /media/pi/blackhole/torrents/completed/:/data/movies
-    - /media/pi/blackhole/torrents/completed/:/data/tvshows
-  environment:
-    - PUID=1000
-    - PGID=1000
 
  transmission:
   build:
@@ -98,3 +82,16 @@ services:
     - 8.8.8.8
     - 4.2.2.4
    network_mode: "host"
+
+ samba:
+  build:
+     context: samba/
+     dockerfile: Dockerfile.armhf
+  restart: always
+  ports:
+    - "139:139"
+    - "445:445"
+  command: -u "pi;cookie123" -s "torrents;/torrents" samba.sh
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /media/pi/blackhole/torrents:/torrents
