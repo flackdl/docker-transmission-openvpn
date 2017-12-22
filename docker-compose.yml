@@ -89,9 +89,11 @@ services:
      dockerfile: Dockerfile.armhf
   restart: always
   ports:
+    - "137:137"
+    - "138:138"
     - "139:139"
     - "445:445"
-  command: -u "pi;cookie123" -s "torrents;/torrents" samba.sh
+  command: -u "${SMB_USER};${SMB_PASS}" -s "torrents;/torrents" -g "min protocol = CORE"
   volumes:
     - /etc/localtime:/etc/localtime:ro
-    - /media/pi/blackhole/torrents:/torrents
+    - /media/pi/blackhole/torrents:/torrents:ro
